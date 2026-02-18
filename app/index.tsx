@@ -1,6 +1,28 @@
-import { Text, View, StyleSheet, FlatList, Image } from "react-native";
+import { Text, View, StyleSheet, FlatList, Image, ScrollView, Dimensions, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
- 
+
+const banner = [
+  {
+    id: 1,
+    title: "Gran Turismo",
+    image: "https://www.einerd.com/wp-content/uploads/2023/08/gran-turismo.jpg"
+  },
+  {
+    id: 2,
+    title: "Cinepop",
+    image: "https://cinepop.com.br/wp-content/uploads/2020/12/poster1.jpg"
+  },
+  {
+    id: 3,
+    title: "Oppenheimer",
+    image: "https://disney.images.edge.bamgrid.com/ripcut-delivery/v2/variant/disney/019b2eff-a563-7bb9-9b85-715e90eda701/compose?aspectRatio=1.78&format=webp&width=1200"
+  }
+]
+
+const {width} = Dimensions.get("window")
+
+
+
 const filmesEmAlta = [
   {
     id: 1,
@@ -22,7 +44,7 @@ const filmesEmAlta = [
     title: "Telefone Preto 2",
     image: "https://static3.moviehub.com.br/fotos/filmes/poster/16692_medio.jpg"
   }
-] 
+]
 const serieEmAlta = [
   {
     id: 1,
@@ -69,12 +91,29 @@ const desenho = [
 ]
 
 
+
 export default function Index() {
   return (
     <SafeAreaView style={style.container}>
+
+    <ScrollView showsVerticalScrollIndicator={false}>
     <View>
       <Text style={style.mainTitle}>BentoFlix</Text>
       <Text style={style.welcomeText}>Bem vindo, ao seu catalogo de filmes e cinemas</Text>
+    </View>
+
+    <View style={style.section}>
+      <FlatList horizontal showsHorizontalScrollIndicator={false} data={banner} renderItem={(({item}) => (
+      
+      <View style={style.bannerContainer}>
+        <View style={style.bannerItem}>
+          <Image style={style.bannerImage} source={{uri: item.image}}  />
+          <TouchableOpacity style={style.bannerButton}>
+            <Text style={style.bannerButtonText}>Assistir</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      ))}></FlatList>
     </View>
 
     <View style={style.section}>
@@ -107,7 +146,9 @@ export default function Index() {
       </View>
       ))}></FlatList>
     </View>
-    </SafeAreaView>
+
+    </ScrollView >
+    </SafeAreaView >
   );
 }
 const style = StyleSheet.create({
@@ -122,7 +163,7 @@ const style = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold"
   },
-  welcomeText:{
+  welcomeText: {
     color: "#fff",
     fontSize: 14,
     opacity: 0.8,
@@ -152,7 +193,37 @@ const style = StyleSheet.create({
     gap: 15,
   },
   section: {
-    marginBottom:30
+    marginBottom: 30
+  },
+  bannerImage: {
+    width: "100%",
+    height: 200,
+    resizeMode: "cover",
+    borderRadius: 8
+  },
+  bannerItem: {
+    width: 300,
+    height: 170,
+    borderRadius: 8,
+    overflow: "hidden",
+    marginRight: 15,
+    position: "relative"
+  },
+  bannerContainer: {
+    width: width - 30
+  },
+  bannerButton: {
+    backgroundColor: "#e509",
+    borderRadius: 5,
+    paddingVertical: 6,
+    paddingHorizontal: 16,
+    position: "absolute",
+    bottom: 10,
+    left: 15
+  },
+  bannerButtonText: {
+    color: "#fff",
+    fontSize: 13,
+    fontWeight: "bold"
   }
-
 })
